@@ -12,10 +12,21 @@ import java.util.*;
  */
 @SuppressWarnings("unchecked")
 public class MyArrayList<E> implements List<E> {
-
+    /**
+     * 底层数组
+     */
     private Object[] elementData;
+    /**
+     * list长度
+     */
     private int size;
+    /**
+     * 默认大小
+     */
     private static final int DEFAULT_CAPACITY = 10;
+    /**
+     * 空数组
+     */
     private static final Object[] EMPTY_ELEMENTDATA = {};
 
     public MyArrayList(int initialCapacity) {
@@ -73,7 +84,7 @@ public class MyArrayList<E> implements List<E> {
 
     @Override
     public Object[] toArray() {
-        return Arrays.copyOf(elementData,size);
+        return Arrays.copyOf(elementData, size);
     }
 
     @Override
