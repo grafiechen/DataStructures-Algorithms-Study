@@ -13,7 +13,7 @@ import java.util.List;
  * @version 1.0.0
  * @since 2022-05-25
  */
-public class ListTest {
+public class MyArrayListTest {
     private MyArrayList<Integer> defaultArrayList;
 
     @BeforeEach
@@ -98,15 +98,17 @@ public class ListTest {
         System.out.println(defaultArrayList);
         System.out.println(defaultArrayList.size());
     }
+
     @Test
-    void indexOfTest(){
+    void indexOfTest() {
         System.out.println(defaultArrayList);
         System.out.println(defaultArrayList.indexOf(null));
         System.out.println(defaultArrayList.indexOf(new Integer(1)));
         System.out.println(defaultArrayList.indexOf(new Integer(10)));
     }
+
     @Test
-    void lastIndexOfTest(){
+    void lastIndexOfTest() {
         System.out.println(defaultArrayList);
         defaultArrayList.add(null);
         System.out.println(defaultArrayList);
@@ -117,8 +119,9 @@ public class ListTest {
         System.out.println(defaultArrayList);
         System.out.println(defaultArrayList.lastIndexOf(0));
     }
+
     @Test
-    void toArrayTest(){
+    void toArrayTest() {
         System.out.println(defaultArrayList);
         System.out.println(Arrays.toString(defaultArrayList.toArray()));
         Integer[] newArray = new Integer[5];
