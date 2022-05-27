@@ -1,12 +1,18 @@
 package com.grafie.study.datastructures.list;
 
-import java.util.*;
+import java.util.Collection;
+import java.util.Iterator;
+import java.util.List;
+import java.util.ListIterator;
 
 /**
+ * mock a linkedList by implements {@link List}
+ *
  * @author grafie grafie.cn
  * @version 1.0.0
  * @since 2022-05-26
  */
+@SuppressWarnings("unchecked")
 public class MyLinkedList<E> implements List<E> {
     /**
      * 复制LinkedList的Node
@@ -24,6 +30,9 @@ public class MyLinkedList<E> implements List<E> {
     }
 
     public MyLinkedList() {
+        size = 0;
+        last = null;
+        first = null;
     }
 
     /**
@@ -33,7 +42,6 @@ public class MyLinkedList<E> implements List<E> {
     private Node<E> first;
     private Node<E> last;
 
-    // TODO: 2022/5/26 待完善
     @Override
     public int size() {
         return size;
@@ -74,7 +82,7 @@ public class MyLinkedList<E> implements List<E> {
     }
 
     @Override
-    public <T> T[] toArray(T[] a) {
+    public <E> E[] toArray(E[] a) {
         // TODO: 2022/5/26
         return null;
     }
@@ -88,6 +96,30 @@ public class MyLinkedList<E> implements List<E> {
         }
         last = new Node<>(last, e, null);
         return true;
+    }
+
+    /**
+     * 获取第一个节点的值
+     *
+     * @return E 第一个节点的值
+     */
+    public E getFirst() {
+        if (first == null || first.item == null) {
+            return null;
+        }
+        return (E) first.item;
+    }
+
+    /**
+     * 获取最后一个节点的值
+     *
+     * @return E 获取最后一个节点的值
+     */
+    public E getLast() {
+        if (last == null || last.item == null) {
+            return null;
+        }
+        return (E) last.item;
     }
 
     @Override
