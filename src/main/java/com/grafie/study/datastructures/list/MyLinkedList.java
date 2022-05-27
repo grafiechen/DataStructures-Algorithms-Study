@@ -92,9 +92,12 @@ public class MyLinkedList<E> implements List<E> {
         if (first == null) {
             first = new Node<>(null, e, null);
             last = first;
-            return true;
+        } else {
+            Node<E> newNode = new Node<>(last, e, null);
+            last.next = newNode;
+            last = newNode;
         }
-        last = new Node<>(last, e, null);
+        size++;
         return true;
     }
 
@@ -124,7 +127,19 @@ public class MyLinkedList<E> implements List<E> {
 
     @Override
     public boolean remove(Object o) {
-        // TODO: 2022/5/26
+        if (o == null) {
+            Node<E> node = first;
+            while (node != null) {
+                if (node.item == null) {
+                    Node<E> pre = node.prev;
+                    Node<E> next = node.next;
+                    pre.next = next;
+                    next.prev = pre;
+                    return true;
+                }
+                node = node.next;
+            }
+        }
         return false;
     }
 
@@ -136,12 +151,18 @@ public class MyLinkedList<E> implements List<E> {
 
     @Override
     public boolean addAll(Collection<? extends E> c) {
-        // TODO: 2022/5/26
-        return false;
+        if (c.size() <= 0) {
+            return false;
+        }
+        for (E e : c) {
+            add(e);
+        }
+        return true;
     }
 
     @Override
     public boolean addAll(int index, Collection<? extends E> c) {
+
         // TODO: 2022/5/26
         return false;
     }
@@ -215,5 +236,24 @@ public class MyLinkedList<E> implements List<E> {
     public List<E> subList(int fromIndex, int toIndex) {
         // TODO: 2022/5/27
         return null;
+    }
+
+    @Override
+    public String toString() {
+        if (size <= 0) {
+            return "[]";
+        }
+        StringBuilder sb = new StringBuilder();
+        sb.append("[");
+        Node<E> startNode = first;
+        while (startNode != null) {
+            sb.append(startNode.item);
+            startNode = startNode.next;
+            if (startNode != null) {
+                sb.append(", ");
+            }
+        }
+        sb.append("]");
+        return sb.toString();
     }
 }

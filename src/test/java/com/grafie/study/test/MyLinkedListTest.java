@@ -14,8 +14,9 @@ public class MyLinkedListTest {
         MyLinkedList<Integer> linkedList = new MyLinkedList<>();
         linkedList.add(1);
         linkedList.add(2);
-        linkedList.add(1);
+        linkedList.add(3);
         System.out.println(linkedList);
+        System.out.println(linkedList.size());
     }
 
 }
