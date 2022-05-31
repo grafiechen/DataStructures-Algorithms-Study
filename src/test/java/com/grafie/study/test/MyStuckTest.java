@@ -62,7 +62,7 @@ public class MyStuckTest {
 
     @Test
     void reserveWord() {
-        String a = "Hello word ";
+        String a = "Hello word";
         MyStuck<Character> myStuck = new MyStuck<>(a.length());
         for (int i = 0; i < a.length(); i++) {
             myStuck.push(a.charAt(i));
