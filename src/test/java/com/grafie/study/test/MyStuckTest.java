@@ -38,25 +38,39 @@ public class MyStuckTest {
         System.out.println(myStuck.pop());
         System.out.println(myStuck);
 
-        while (!myStuck.isEmpty()){
+        while (!myStuck.isEmpty()) {
             System.out.println(myStuck.pop());
         }
     }
+
     @Test
-    void clearTest(){
+    void clearTest() {
         System.out.println(myStuck);
-        System.out.println("empty: "+myStuck.isEmpty());
-        System.out.println("full: "+myStuck.isFull());
-        while (!myStuck.isFull()){
+        System.out.println("empty: " + myStuck.isEmpty());
+        System.out.println("full: " + myStuck.isFull());
+        while (!myStuck.isFull()) {
             myStuck.push(1);
         }
         System.out.println(myStuck);
-        System.out.println("empty: "+myStuck.isEmpty());
-        System.out.println("full: "+myStuck.isFull());
+        System.out.println("empty: " + myStuck.isEmpty());
+        System.out.println("full: " + myStuck.isFull());
         myStuck.clear();
         System.out.println(myStuck);
-        System.out.println("empty: "+myStuck.isEmpty());
-        System.out.println("full: "+myStuck.isFull());
+        System.out.println("empty: " + myStuck.isEmpty());
+        System.out.println("full: " + myStuck.isFull());
     }
 
+    @Test
+    void reserveWord() {
+        String a = "Hello word";
+        MyStuck<Character> myStuck = new MyStuck<>(a.length());
+        for (int i = 0; i < a.length(); i++) {
+            myStuck.push(a.charAt(i));
+        }
+        StringBuilder sb = new StringBuilder();
+        while (!myStuck.isEmpty()) {
+            sb.append(myStuck.pop());
+        }
+        System.out.println(sb);
+    }
 }
