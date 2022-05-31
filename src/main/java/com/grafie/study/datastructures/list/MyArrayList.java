@@ -253,6 +253,9 @@ public class MyArrayList<E> implements List<E> {
 
     @Override
     public void clear() {
+        for (Object o : elementData) {
+            o = null;
+        }
         elementData = new Object[DEFAULT_CAPACITY];
     }
 

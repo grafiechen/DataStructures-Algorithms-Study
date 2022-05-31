@@ -77,14 +77,28 @@ public class MyLinkedList<E> implements List<E> {
 
     @Override
     public Object[] toArray() {
-        // TODO: 2022/5/26
-        return new Object[0];
+        Object[] array = new Object[size];
+        int index = 0;
+        Node<E> node = first;
+        while (index < size) {
+            array[index] = node.item;
+            node = node.next;
+            index++;
+        }
+        return array;
     }
 
     @Override
     public <E> E[] toArray(E[] a) {
-        // TODO: 2022/5/26
-        return null;
+        Node node = first;
+        int indexMax = Math.min(a.length, size);
+        int index = 0;
+        while (index < indexMax) {
+            a[index] = (E) node.item;
+            index++;
+            node = node.next;
+        }
+        return a;
     }
 
     @Override
@@ -93,12 +107,31 @@ public class MyLinkedList<E> implements List<E> {
             first = new Node<>(null, e, null);
             last = first;
         } else {
-            Node<E> newNode = new Node<>(last, e, null);
-            last.next = newNode;
-            last = newNode;
+            linkLast(e);
         }
         size++;
         return true;
+    }
+
+    private void link(Node<E> node, Node<E> newNode) {
+        Node<E> nodeNext = node.next;
+        node.next = newNode;
+        newNode.prev = node;
+        newNode.next = nodeNext;
+        nodeNext.prev = newNode;
+    }
+
+    private void linkFirst(E value) {
+        Node<E> newNode = new Node<>(null, value, null);
+        newNode.next = first;
+        first = newNode;
+    }
+
+    private void linkLast(E value) {
+        Node<E> newNode = new Node<>(last, value, null);
+        Node<E> oldLastNode = last;
+        oldLastNode.next = newNode;
+        last = newNode;
     }
 
     /**
@@ -127,20 +160,36 @@ public class MyLinkedList<E> implements List<E> {
 
     @Override
     public boolean remove(Object o) {
+        Node<E> node = first;
         if (o == null) {
-            Node<E> node = first;
             while (node != null) {
                 if (node.item == null) {
-                    Node<E> pre = node.prev;
-                    Node<E> next = node.next;
-                    pre.next = next;
-                    next.prev = pre;
+                    unlink(node);
+                    size--;
+                    return true;
+                }
+                node = node.next;
+            }
+        } else {
+            while (node != null) {
+                if (o.equals(node.item)) {
+                    unlink(node);
+                    size--;
                     return true;
                 }
                 node = node.next;
             }
         }
         return false;
+    }
+
+    private void unlink(Node<E> node) {
+        Node<E> prev = node.prev;
+        Node<E> next = node.next;
+        prev.next = next;
+        next.prev = prev;
+        node.item = null;
+        node = null;
     }
 
     @Override
@@ -181,6 +230,15 @@ public class MyLinkedList<E> implements List<E> {
 
     @Override
     public void clear() {
+        Node<E> eNode = first;
+        while (eNode != null) {
+            Node<E> nextNode = eNode.next;
+            eNode.item = null;
+            eNode.next = null;
+            eNode.prev = null;
+            eNode = null;
+            eNode = nextNode;
+        }
         first = null;
         last = null;
     }
@@ -197,9 +255,37 @@ public class MyLinkedList<E> implements List<E> {
         return null;
     }
 
+    private void checkIndex(int index) {
+        if (index > size || index < 0) {
+            throw new IndexOutOfBoundsException("index: " + index + ", size: " + size);
+        }
+    }
+
     @Override
     public void add(int index, E element) {
-        // TODO: 2022/5/27
+        checkIndex(index);
+        if (index == size) {
+            linkLast(element);
+            size++;
+            return;
+        }
+        if (index == 0) {
+            linkFirst(element);
+            size++;
+            return;
+        }
+        int listIndex = 1;
+        Node<E> node = first;
+        while (node != null) {
+            if (listIndex == index) {
+                link(node, new Node<>(null, element, null));
+                size++;
+                return;
+            }
+            listIndex++;
+            node = node.next;
+        }
+
     }
 
     @Override
